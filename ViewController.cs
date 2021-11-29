@@ -9,7 +9,11 @@ public partial class ViewController : NSViewController {
 	{
 		base.ViewDidLoad ();
 
-		// Do any additional setup after loading the view.
+		try {
+			AuthTester.RunTest ();
+		} catch (Exception ex) {
+			ShowError (ex.Message);
+		}
 	}
 
 	public override NSObject RepresentedObject {
@@ -18,6 +22,14 @@ public partial class ViewController : NSViewController {
 			base.RepresentedObject = value;
 
 			// Update the view, if already loaded.
+		}
+	}
+
+	static void ShowError (string message)
+	{
+		using (var alert = new NSAlert ()) {
+			alert.MessageText = message;
+			alert.RunModal ();
 		}
 	}
 }
